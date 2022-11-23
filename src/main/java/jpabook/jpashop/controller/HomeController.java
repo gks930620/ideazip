@@ -1,16 +1,41 @@
 package jpabook.jpashop.controller;
 
-import lombok.extern.slf4j.Slf4j;
+import jpabook.jpashop.repository.IdeaRepository;
+import jpabook.jpashop.repository.MemberRepository;
+import jpabook.jpashop.repository.ThumbUpRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 
+import javax.annotation.PostConstruct;
+
+@RequiredArgsConstructor
 @Controller
-@Slf4j
 public class HomeController {
+    IdeaRepository ideaRepository;
+    MemberRepository memberRepository;
+    ThumbUpRepository thumbUpRepository;
 
-    @RequestMapping("/")
-    public String home() {
-        log.info("home controller");
+    //jpaRepository.save()는 원리 기억하자.    save 할 때 새로운객체인지아닌지는 식별자가  null (or 0, primitive 타입일 때) 로 판단.
+    //@Entity클래스에    id에 @GenerateValue를 하면   persist후   식별자에 값 생성.
+    //만약 @Generatevalue를 안 쓰고 식별자에 값을 save()전에 넣고  save를 실행하면   save()메소드내에서 상당한 시간낭비를 하게 된다.
+    // 결론은  @generatevalue를 하면 걍 save 하면 되긴함.    jpa의 새로운객체 판별방법은 기억하고있자.
+    @PostConstruct  //객체만들고(빈등록) 이거 실행해주세요
+    public void initDummyData(){
+        for(int i=0; i<50 ; i++){
+
+        }
+
+
+
+    }
+
+
+
+    @GetMapping("/")
+    public String home(){
         return "home";
     }
+
+
 }
