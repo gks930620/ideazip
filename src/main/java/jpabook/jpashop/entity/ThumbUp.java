@@ -11,8 +11,7 @@ import javax.persistence.*;
 @Entity
 public class ThumbUp {
 
-    @Id
-    @GeneratedValue
+    @Id@GeneratedValue
     @Column(name = "thumbUp_id")
     private Long id;
 

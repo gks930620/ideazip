@@ -13,6 +13,7 @@ public class AttachIdea {    //부모글이 분류가 없다.  첨부파일별�
 
     @Id@GeneratedValue
     @Column(name = "attachIdea_id")
+
     private Long id; /* 첨부파일 번호(PK) */
 
     @ManyToOne(fetch = FetchType.LAZY)

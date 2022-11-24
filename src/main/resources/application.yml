@@ -17,6 +17,8 @@ logging.level:
   org.hibernate.SQL: debug
 #  org.hibernate.type: trace
 
+
+
 #  jpa와 mysql인데 나중에 바꾸는걸로
 #spring:
 #  datasource:
