@@ -32,7 +32,6 @@ public class HomeController {
     @PostConstruct  //객체만들고(빈등록) 이거 실행해주세요
     public void initDummyData(){
         initService.init();
-
     }
 
 

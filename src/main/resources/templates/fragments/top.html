@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<!-- Fixed navbar -->
+<nav class="navbar navbar-default navbar-fixed-top" th:fragment="top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">areum home</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#">Home</a></li>
+                <li><a href="<%=request.getContextPath()%>/about/aboutHome.wow">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">게시판
+                        <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="<%=request.getContextPath() %>/free/freeList.wow">아이디어모음</a></li>
+                        <li><a href="#">자료실</a></li>
+                        <li><a href="#">공지사항</a></li>
+                        <li class="divider"></li>
+                        <li class="dropdown-header">더 있나 추가할거?</li>
+                    </ul>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="<%=request.getContextPath() %>/login/login.wow">로그인</a></li>
+                <li><a href="<%=request.getContextPath() %>/join/step1.wow">회원가입</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> 이름..
+                        님 <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="<%=request.getContextPath() %>/mypage/info.wow">
+                            <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+                            &nbsp;&nbsp;My page
+                        </a></li>
+                        <li><a href="#">
+                            <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+                            &nbsp;&nbsp;비밀번호 변경
+                        </a></li>
+                        <li><a href="#">
+                            <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+                            &nbsp;&nbsp;1:1 문의게시판
+                        </a></li>
+                        <li class="divider"></li>
+                        <li><a href="<%=request.getContextPath() %>/login/logout.wow">
+                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                            &nbsp;&nbsp;로그아웃
+                        </a></li>
+                    </ul>
+                </li>
+
+
+            </ul>
+        </div><!--/.nav-collapse -->
+    </div>
+</nav>
