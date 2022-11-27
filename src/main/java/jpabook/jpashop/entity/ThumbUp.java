@@ -2,12 +2,13 @@ package jpabook.jpashop.entity;
 
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
 
 @Data
-@RequiredArgsConstructor
+@NoArgsConstructor
 @Entity
 public class ThumbUp {
 

@@ -2,6 +2,7 @@ package jpabook.jpashop.entity;
 
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
@@ -9,9 +10,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
-@RequiredArgsConstructor
+@NoArgsConstructor
 @Entity
 public class Category {
+
+    public Category(String categoryCd, String categoryName) {
+        this.categoryCd = categoryCd;
+        this.categoryName = categoryName;
+    }
+
     @Id
     @GeneratedValue
     @Column(name = "category_id")

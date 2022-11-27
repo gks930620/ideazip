@@ -2,6 +2,7 @@ package jpabook.jpashop.entity;
 
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
@@ -9,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
-@RequiredArgsConstructor
+@NoArgsConstructor
 @Entity
 //네이버나 카카오 API를 쓰면 어떻게 바뀌어야 할까
 public class Member {

@@ -1,6 +1,7 @@
 package jpabook.jpashop.entity;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
@@ -9,11 +10,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
-@RequiredArgsConstructor
 @Entity
-@ToString(of = {"id","content","ideaDelYn"})
+@NoArgsConstructor
+@ToString(of = {"id","content","ideaDelYn", "createdDate"})
 public class Idea extends  BaseTimeEntity{
-    public Idea(String content){
+    public Idea(String title,String content){
+        this.title=title;
         this.content=content;
     }
 
@@ -29,7 +31,8 @@ public class Idea extends  BaseTimeEntity{
     @JoinColumn(name = "member_id")
     private Member member;
 
-    @Column(name = "content")
+    private String title;
+
     private String content;
 
 

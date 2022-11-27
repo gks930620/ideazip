@@ -1,6 +1,7 @@
 package jpabook.jpashop.entity;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
@@ -8,7 +9,7 @@ import java.util.List;
 
 @Entity
 @Data
-@RequiredArgsConstructor
+@NoArgsConstructor
 public class AttachIdea {    //부모글이 분류가 없다.  첨부파일별로 Entity만들기
 
     @Id@GeneratedValue
