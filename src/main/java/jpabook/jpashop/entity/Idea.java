@@ -44,4 +44,8 @@ public class Idea extends  BaseTimeEntity{
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "idea")
     private List<ThumbUp> thumbUps= new ArrayList<>();
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "idea")
+    private UpdateHit updateHit;
+
+
 }
