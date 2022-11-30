@@ -23,4 +23,5 @@ public class UpdateHit {   //조회수
     private Idea idea;
 
 
+
 }
