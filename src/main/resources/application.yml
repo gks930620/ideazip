@@ -14,9 +14,9 @@ spring:
       hibernate:
 #        show_sql: true
         format_sql: true
-  devtools:
-    livereload:
-      enabled: true
+  devtools:   # 정적자원 캐시사용안함=> 새로고침시 바로바로,   but 실제서버운영시 캐시 사용해야된다
+    restart:
+      enabled: false
     freemarker:
       cache: false
     thymeleaf:

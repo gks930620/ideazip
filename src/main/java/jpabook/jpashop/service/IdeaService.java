@@ -18,13 +18,9 @@ public class IdeaService {
 
     private final IdeaRepository ideaRepository;
 
-    public List<IdeaListDto> getIdeaList(IdeaListSearch ideaListSearchDto, Pageable pageable) {
-        Page<Idea> page = ideaRepository.findAll(pageable);
-        Page<IdeaListDto> dtoMap = page.map(idea ->
-                new IdeaListDto(idea.getId(), idea.getCategory().getCategoryName(), idea.getMember().getUsername(), idea.getTitle(),idea.getCreatedDate()));
-
-        return dtoMap.getContent();
-
+    public Page<IdeaListDto> getIdeaList( Pageable pageable,IdeaListSearch ideaListSearchDto) {
+        Page<IdeaListDto> pageResults = ideaRepository.ideaSearchPage(pageable, ideaListSearchDto);
+        return pageResults;
     }
 
 }

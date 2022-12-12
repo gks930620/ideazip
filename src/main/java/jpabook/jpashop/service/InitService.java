@@ -32,7 +32,7 @@ public class InitService {
         List<Idea> ideas = new ArrayList<>();
         Member member1 = new Member("password", "username1", "email", "hp", "birthday", "zipcode", "add", "addDetail");
         memberRepository.save(member1);
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 100; i++) {
             Idea idea = new Idea("제목" + i, "내용"+i);
             idea.setMember(member1);   //나중에 set말고 연관관계 메소드 잘 만들어야겠지만 일단은 여기까지.
             idea.setCategory(category);
@@ -41,7 +41,7 @@ public class InitService {
         }
         Member member2 = new Member("password", "username2", "email", "hp", "birthday", "zipcode", "add", "addDetail");
         memberRepository.save(member2);
-        for (int i = 10; i < 20; i++) {
+        for (int i = 100; i < 215 ; i++) {
             Idea idea = new Idea("제목" + i, "내용"+i);
             ideaRepository.save(idea); //일단 insert (물론 실제쿼리는 나중에 실행, 영속성컨테스트에 sql쿼리 날리는거임)
             idea.setMember(member2);  //save 후 set하면 나중에 변경감지에서 update  문까지  영속성 컨테스트에...     나중에 trasaction 후 모든 쿼리 쏴악  변경감지도 어쨋든 update쿼리실행이니 최대한 적은게 좋음

@@ -1,5 +1,9 @@
 package jpabook.jpashop.ideadto;
 
+import com.querydsl.core.annotations.QueryProjection;
+import com.querydsl.core.types.dsl.DateTimePath;
+import com.querydsl.core.types.dsl.NumberPath;
+import com.querydsl.core.types.dsl.StringPath;
 import jpabook.jpashop.entity.BaseTimeEntity;
 import jpabook.jpashop.entity.Category;
 import jpabook.jpashop.entity.Member;
@@ -14,8 +18,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
-@RequiredArgsConstructor
 public class IdeaListDto   {
+
+    @QueryProjection
     public IdeaListDto(Long id, String categoryName, String username, String title,LocalDateTime createdDate) {
         this.id = id;
         this.categoryName = categoryName;
@@ -31,4 +36,6 @@ public class IdeaListDto   {
     private LocalDateTime createdDate;
 
 
+    public IdeaListDto(NumberPath<Long> id, StringPath categoryName, StringPath username, StringPath title, DateTimePath<LocalDateTime> createdDate) {
+    }
 }
