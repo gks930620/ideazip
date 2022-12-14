@@ -4,11 +4,7 @@ import com.querydsl.core.QueryResults;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 //import jpabook.jpashop.entity.QIdea;
-import jpabook.jpashop.entity.QCategory;
-import jpabook.jpashop.entity.QMember;
-import jpabook.jpashop.ideadto.IdeaListDto;
-import jpabook.jpashop.ideadto.IdeaListSearch;
-import jpabook.jpashop.ideadto.QIdeaListDto;
+import jpabook.jpashop.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -21,13 +17,13 @@ import static jpabook.jpashop.entity.QIdea.idea;
 import static jpabook.jpashop.entity.QMember.member;
 import static org.springframework.util.StringUtils.hasText;
 
-public class IdeaRepositoryCustomImpl implements IdeaRepositoryCustom {
+public class IdeaRepositoryImpl implements IdeaRepositoryCustom {
 
+    @Autowired
+    private JPAQueryFactory queryFactory;   //난 빈등록했으니까..
 
     private BooleanExpression searchWord(String searchType,String searchWord) { // 검색타입 검색어와  항상 같이
-        System.out.println("searchType = " + searchType);
-        System.out.println("searchWord = " + searchWord);
-        if (hasText(searchType)) {
+        if (hasText(searchWord)) {
             switch (searchType) {
                 case "T":  //제목
                     return idea.title.contains(searchWord);
@@ -45,13 +41,11 @@ public class IdeaRepositoryCustomImpl implements IdeaRepositoryCustom {
     }
 
 
-    @Autowired
-    private JPAQueryFactory queryFactory;   //난 빈등록했으니까..
 
 
     @Override
     public Page<IdeaListDto> ideaSearchPage(Pageable pageable, IdeaListSearch ideaListSearch) {
-        QueryResults<IdeaListDto> result = queryFactory.select(new QIdeaListDto(idea.id, idea.category.categoryName, idea.member.username, idea.title, idea.createdDate))
+        QueryResults<IdeaListDto> result = queryFactory.select(new QIdeaListDto(idea.id, category.categoryName, member.username, idea.title, idea.createdDate))
                 .from(idea)
                 .leftJoin(idea.category, category)
                 .leftJoin(idea.member, member)
@@ -65,4 +59,17 @@ public class IdeaRepositoryCustomImpl implements IdeaRepositoryCustom {
         long total = result.getTotal();
         return new PageImpl<>(content, pageable, total);
     }
+
+
+    @Override
+    public IdeaViewDto getIdeaView(Long id) {
+      return queryFactory.select(new QIdeaViewDto(idea.id,category.categoryName, member.username,idea.title,idea.content,idea.createdDate,idea.lastModifiedDate)
+      ).from(idea)
+              .leftJoin(idea.category, category)
+              .leftJoin(idea.member, member)
+              .where(idea.id.eq(id))
+              .fetchOne();
+    }
+
+
 }

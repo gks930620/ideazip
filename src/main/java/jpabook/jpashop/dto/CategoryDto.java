@@ -1,17 +1,22 @@
-package jpabook.jpashop.ideadto;
+package jpabook.jpashop.dto;
 
 
-import lombok.Data;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Data
-@RequiredArgsConstructor
+@Getter
+@Setter
+@ToString
+@NoArgsConstructor
 public class CategoryDto {
 
+    public CategoryDto(String categoryCd, String categoryName) {
+        this.categoryCd = categoryCd;
+        this.categoryName = categoryName;
+    }
 
     private Long id;
     private String categoryCd;  //카테고리 코드 JB00

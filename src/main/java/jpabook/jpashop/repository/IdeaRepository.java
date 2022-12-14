@@ -1,12 +1,7 @@
 package jpabook.jpashop.repository;
 
 import jpabook.jpashop.entity.Idea;
-import jpabook.jpashop.ideadto.IdeaListSearch;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 
 public interface IdeaRepository  extends JpaRepository<Idea,Long>, IdeaRepositoryCustom {
 

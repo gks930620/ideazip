@@ -1,11 +1,11 @@
+server :
+  port : 8080  #충돌나면 잠깐 바꾸자
 spring:
   datasource:
     url: jdbc:h2:tcp://localhost/~/ideazip
     username: sa
     password: sa
     driver-class-name: org.h2.Driver
-
-
 
   jpa:
     hibernate:
@@ -14,18 +14,21 @@ spring:
       hibernate:
 #        show_sql: true
         format_sql: true
+
   devtools:   # 정적자원 캐시사용안함=> 새로고침시 바로바로,   but 실제서버운영시 캐시 사용해야된다
-    restart:
-      enabled: false
+    livereload :
+      enabled : true
     freemarker:
       cache: false
-    thymeleaf:
-      cache: false
+    restart:
+      enabled: false
+  thymeleaf:
+    cache: false
+
+
 logging.level:
   org.hibernate.SQL: debug
 #  org.hibernate.type: trace
-
-
 
 #  jpa와 mysql인데 나중에 바꾸는걸로
 #spring:

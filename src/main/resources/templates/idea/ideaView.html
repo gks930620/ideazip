@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header">
+    <title>Hello</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<nav th:replace="fragments/top :: top"></nav>
+<br><br><br>
+<div class="container">
+    <div class="page-header">
+        <h3>
+            아이디어게시판 - <small>글 보기</small>
+        </h3>
+    </div>
+    <div>
+        <table class="table">
+            <tr class="active row">
+                <td  th:text="${idea.username}"></td>
+                <td  th:text="${idea.createdDate}"></td>
+<!--              glyphicon glyphicon-heart   tglyphicon glyphicon-heart-empty   glyphicon glyphicon-thumbs-up-->
+                <td class="text-right"> <span class="glyphicon glyphicon-eye-open"></span>  30000
+                <span class=" glyphicon glyphicon-heart"></span> 300
+                <span class=" glyphicon glyphicon-comment"></span> 300</td>
+            </tr>
+        </table>
+    </div>
+
+    <div> 여기는 이제 CKeditor갖고 글 쓴거 보여주는 용도인데,,  form먼저해보자.</div>
+
+</div>
+<!-- container -->
+
+
+
+
+
+</body>
+<script type="text/javascript">
+
+</script>
+</html>
+
+
+
+
+
+

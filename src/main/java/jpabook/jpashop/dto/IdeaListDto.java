@@ -1,4 +1,4 @@
-package jpabook.jpashop.ideadto;
+package jpabook.jpashop.dto;
 
 import com.querydsl.core.annotations.QueryProjection;
 import com.querydsl.core.types.dsl.DateTimePath;
