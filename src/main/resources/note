@@ -1,0 +1,10 @@
+Entity-> DTO는  프로젝트규모에 따라 달라지겠지만 여기서는 모두 persitenceLayer에서부터 DTO를 가지고오는걸로 한다.
+Service,Controller단엣는 Entity가지고 무언가 하지 않을 예정
+
+
+
+csrf 관련 post매핑 404는 disalbe 하거나,   csrf넣어줘야되는데,  disable 넣어도 되는 프로젝트이지만 나중을 위한 보안 시 csrf 기능 넣어줌.
+login.form에도 넣어주고 logout하는 쪽에도 넣어줘야 한다.
+
+security에서는 password를 반드시 암호화해야한다. 그래서 encode해야되는데, 더미데이터 넣을 때도 암호화해서 넣어줘야 된다.
+

@@ -48,5 +48,10 @@ public class IdeaController {
         return "idea/ideaView";
     }
 
+    @GetMapping("/idea/ideaForm")  //interceptor나 session없이 security를 통해서
+    public String ideaForm(){
+        return "idea/ideaForm";
+    }
+
 
 }

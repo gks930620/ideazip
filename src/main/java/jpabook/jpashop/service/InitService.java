@@ -9,6 +9,8 @@ import jpabook.jpashop.repository.IdeaRepository;
 import jpabook.jpashop.repository.MemberRepository;
 import jpabook.jpashop.repository.ThumbUpRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,6 +24,9 @@ public class InitService {
     private final MemberRepository memberRepository;
     private final ThumbUpRepository thumbUpRepository;
     private  final CategoryRepository categoryRepository;
+
+    private final PasswordEncoder passwordEncoder;
+
     @Transactional
     public void init() {
         Category category=new Category("BI01","공공기관"); //    일단은 기발한아이디어(BI)로    공공기관, 기발제품
@@ -30,7 +35,7 @@ public class InitService {
         categoryRepository.save(category2);
 
         List<Idea> ideas = new ArrayList<>();
-        Member member1 = new Member("password", "username1", "email", "hp", "birthday", "zipcode", "add", "addDetail");
+        Member member1 = new Member("id1",passwordEncoder.encode("password") , "USER","username1", "email", "hp", "birthday", "zipcode", "add", "addDetail");
         memberRepository.save(member1);
         for (int i = 0; i < 100; i++) {
             Idea idea = new Idea("제목" + i, "내용"+i);
@@ -39,7 +44,7 @@ public class InitService {
             ideaRepository.save(idea);  //set을 먼저하면 member_id가 한번에 insert
             ideas.add(idea);
         }
-        Member member2 = new Member("password", "username2", "email", "hp", "birthday", "zipcode", "add", "addDetail");
+        Member member2 = new Member("id2",passwordEncoder.encode("password") ,"USER", "username2", "email", "hp", "birthday", "zipcode", "add", "addDetail");
         memberRepository.save(member2);
         for (int i = 100; i < 215 ; i++) {
             Idea idea = new Idea("제목" + i, "내용"+i);
@@ -49,7 +54,7 @@ public class InitService {
             ideas.add(idea);
         }
         for (int i = 3; i <= 5; i++) { //member 3,4,5는 글 안쓴 사람
-            Member member = new Member("password", "username" + i, "email", "hp", "birthday", "zipcode", "add", "addDetail");
+            Member member = new Member("id"+i,passwordEncoder.encode("password") , "USER","username" + i, "email", "hp", "birthday", "zipcode", "add", "addDetail");
             memberRepository.save(member);
             for (int j = 0; j < ideas.size(); j = j + i) {
                 ThumbUp thumbUp = new ThumbUp();

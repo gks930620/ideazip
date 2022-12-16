@@ -28,6 +28,8 @@ dependencies {
 	implementation group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-hibernate5'
 	implementation 'com.querydsl:querydsl-jpa'  //querydsl   plugin, tasks도 추가해야함
 	implementation 'com.h2database:h2:1.4.199'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+
 
 	compile group: 'org.springframework.boot', name: 'spring-boot-devtools'
 	compileOnly 'org.projectlombok:lombok'

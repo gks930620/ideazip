@@ -1,6 +1,7 @@
 package jpabook.jpashop.dto;
 
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
@@ -10,8 +11,9 @@ import java.util.List;
 
 @Data
 @RequiredArgsConstructor
+@AllArgsConstructor
 public class MemberDto{
-    private Long id;
+    private String id;
     private String password;
     private String username;
     private String email;
