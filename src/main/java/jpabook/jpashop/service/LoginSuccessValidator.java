@@ -27,6 +27,8 @@ public class LoginSuccessValidator  implements UserDetailsService {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+    //비밀번호 인코딩.  security는 이게 안 되어있으면 알아서 에러일으켜서 꼭 해줘야함.
+    // 그럼 무조건 insert하는 부분에서도 encoding 되서 넣어야 함.
 
 
     @Override
