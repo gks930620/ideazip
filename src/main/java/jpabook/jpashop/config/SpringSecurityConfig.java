@@ -53,7 +53,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Override
-    public void configure(AuthenticationManagerBuilder auth) throws Exception { //인증로직. 인데 직접 구현하는게 편함
+    public void configure(AuthenticationManagerBuilder auth) throws Exception { //인증로직. 인데 직접 구현하는게 편함    JWT방식인가?
         auth.userDetailsService(loginSuccessValidator);     //loginSuccessValidator는  Service빈
     }
 

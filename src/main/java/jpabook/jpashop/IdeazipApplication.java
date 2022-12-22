@@ -21,4 +21,6 @@ public class IdeazipApplication {
 	JPAQueryFactory jpaQueryFactory(EntityManager em){   //이렇게 빈으로 할려면 em이 빈으로 등록되어있어야함.
 		return new JPAQueryFactory(em);
 	}
+
+
 }
