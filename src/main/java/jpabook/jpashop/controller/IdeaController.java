@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
@@ -48,10 +49,15 @@ public class IdeaController {
         return "idea/ideaView";
     }
 
-    @GetMapping("/idea/ideaForm")  //interceptor나 session없이 security를 통해서
+    @GetMapping("/idea/ideaForm")  //interceptor나 session없이 security를 통해서.
     public String ideaForm(){
         return "idea/ideaForm";
     }
 
+    @PostMapping("/idea/ideaInsert")
+    public String ideaInsert(){
+
+        return "redirect:/idea/ideaList";  // view로 가는게 맞지.
+    }
 
 }
