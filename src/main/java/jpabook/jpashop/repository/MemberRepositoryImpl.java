@@ -2,7 +2,6 @@ package jpabook.jpashop.repository;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jpabook.jpashop.dto.LoginDto;
 import jpabook.jpashop.dto.QLoginDto;
-import jpabook.jpashop.entity.QMember;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import static jpabook.jpashop.entity.QMember.member;

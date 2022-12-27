@@ -10,5 +10,7 @@ public class IdeaFormDto {
     private String categoryCd;
     private String title;
     private String content;
+    private String memberId;
+
 
 }

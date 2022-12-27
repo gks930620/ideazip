@@ -19,6 +19,8 @@ public class Idea extends  BaseTimeEntity{
         this.content=content;
     }
 
+
+
     @Id@GeneratedValue
     @Column(name = "idea_id" )  //pk에는 updatable false 해야되는거 아닌가?
     private Long id;
@@ -39,13 +41,16 @@ public class Idea extends  BaseTimeEntity{
     private String ideaDelYn="N";
 
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "idea")
-    private List<AttachIdea> attaches= new ArrayList<>();
+    private List<Attach> attaches= new ArrayList<>();
 
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "idea")
     private List<ThumbUp> thumbUps= new ArrayList<>();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "idea")
     private List<UpdateHit> updateHits=new ArrayList<>();
+
+
+
 
 
 }

@@ -33,7 +33,7 @@ public class LoginSuccessValidator  implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String id) throws UsernameNotFoundException {
-        LoginDto user = memberRepository.findLoginDto(id);
+        LoginDto user = memberRepository.findLoginDto(id);  //DB조회해서 얻은게 LoginDto인데..
         if (user == null) {
             return null;
         }

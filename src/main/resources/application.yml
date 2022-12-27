@@ -7,6 +7,10 @@ spring:
     password: sa
     driver-class-name: org.h2.Driver
 
+  servlet :
+    multipart :
+      max-file-size : 5MB
+      max-request-size : 100MB
   jpa:
     hibernate:
       ddl-auto: create
@@ -26,9 +30,19 @@ spring:
     cache: false
 
 
+
 logging.level:
   org.hibernate.SQL: debug
+
+
+
+
 #  org.hibernate.type: trace
+
+
+
+
+
 
 #  jpa와 mysql인데 나중에 바꾸는걸로
 #spring:

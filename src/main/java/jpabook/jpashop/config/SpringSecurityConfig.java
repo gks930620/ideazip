@@ -50,6 +50,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         http.exceptionHandling()
                 .accessDeniedPage("/denied");   // 로그인했는데 (인증)  권한이 없는(인가) 사용자 접근 시 보여줄 페이지
 
+        http.csrf().disable();
+
     }
 
     @Override

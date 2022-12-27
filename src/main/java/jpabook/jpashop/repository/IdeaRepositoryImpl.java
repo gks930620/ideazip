@@ -3,7 +3,6 @@ package jpabook.jpashop.repository;
 import com.querydsl.core.QueryResults;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-//import jpabook.jpashop.entity.QIdea;
 import jpabook.jpashop.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
