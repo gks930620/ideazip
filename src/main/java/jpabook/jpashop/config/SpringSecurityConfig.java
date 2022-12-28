@@ -29,7 +29,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 //.antMatchers("/member/**").authenticated()
-                //.antMatchers("/idea/ideaForm").authenticated()
+                .antMatchers("/idea/ideaForm").authenticated()
+                .antMatchers("/idea/ideaInsert").authenticated()
                 .antMatchers("/**").permitAll();
 
         http.formLogin()

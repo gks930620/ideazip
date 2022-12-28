@@ -32,8 +32,9 @@ security에서 일단 다 permitAll로 해놓음
 
 
 
+할거 : IdeaInsert에서 파일처리,   ckeditor 이미지 미리보기 할 때 DB에 넣는거? (/idea/fileUpload)
 
-
+security적용안해서 아직 insert할 때 nullpointer나네.
 
 
 

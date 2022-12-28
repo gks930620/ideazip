@@ -76,10 +76,13 @@ public class IdeaController {
             //파일처리는 나중에
         }
         ideaFormDto.setMemberId(principal.getName());  //   getName이지만 id임   security에서는 name(id), pw만 있음.  username이 필요하면 id로 DB조회하자.
-        ideaService.insertIdea(ideaFormDto);
+        Long ideaId=ideaService.insertIdea(ideaFormDto);
 
-        return "redirect:/idea/ideaList";  // view로 가는게 맞지.
+        return "redirect:/idea/ideaView?id="+ideaId;
     }
+
+
+    //insert에서 파일처리하는거(ckeditor말고 따로 올린 파일),  fileUpload에서 DB에도 업로드하기,   edit하기     여기까지 하고 정리하기 . 내일 다 할 수 있다 아자아자
 
 
 

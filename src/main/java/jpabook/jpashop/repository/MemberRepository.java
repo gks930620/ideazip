@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
-public interface MemberRepository  extends JpaRepository<Member,Long>, MemberRepositoryCustom {
+public interface MemberRepository  extends JpaRepository<Member,String>, MemberRepositoryCustom {
 
 
 }

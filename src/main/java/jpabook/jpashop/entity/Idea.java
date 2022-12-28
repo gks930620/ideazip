@@ -50,6 +50,12 @@ public class Idea extends  BaseTimeEntity{
     private List<UpdateHit> updateHits=new ArrayList<>();
 
 
+    public static Idea createIdea(Member member,Category category, String title, String content ){
+        Idea idea=new Idea(title,content);
+        idea.setMember(member);
+        idea.setCategory(category);
+        return idea;
+    }
 
 
 

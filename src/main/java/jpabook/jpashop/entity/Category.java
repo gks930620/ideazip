@@ -2,6 +2,7 @@ package jpabook.jpashop.entity;
 
 
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
@@ -9,7 +10,7 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Data
+@Getter
 @NoArgsConstructor
 @Entity
 public class Category {
