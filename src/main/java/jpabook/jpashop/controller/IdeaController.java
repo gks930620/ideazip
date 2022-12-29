@@ -76,9 +76,9 @@ public class IdeaController {
             //파일처리는 나중에
         }
         ideaFormDto.setMemberId(principal.getName());  //   getName이지만 id임   security에서는 name(id), pw만 있음.  username이 필요하면 id로 DB조회하자.
-        Long ideaId=ideaService.insertIdea(ideaFormDto);
+        Long id=ideaService.insertIdea(ideaFormDto);
 
-        return "redirect:/idea/ideaView?id="+ideaId;
+        return "redirect:/idea/ideaView?id="+id;
     }
 
 
