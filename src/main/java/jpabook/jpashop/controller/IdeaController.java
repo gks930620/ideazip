@@ -59,11 +59,12 @@ public class IdeaController {
         model.addAttribute("idea",idea);
         return "idea/ideaView";
     }
-
     @GetMapping("/idea/ideaForm")  //interceptor나 session없이 security를 통해서.
     public String ideaForm(){
         return "idea/ideaForm";
     }
+
+
 
     @PostMapping("/idea/ideaInsert")   //ckEditor로 이용한 이미지 업로드는 따로 파일업로드 경로가 따로 있지만, 단순 파일첨부 처리는 여기서 한다. 어차피 서비스로 하니까 뭐 코드 중복 될 일은 없지.
     public String ideaInsert(
@@ -75,19 +76,20 @@ public class IdeaController {
         if(boFiles!=null){
             //파일처리는 나중에
         }
-        ideaFormDto.setMemberId(principal.getName());  //   getName이지만 id임   security에서는 name(id), pw만 있음.  username이 필요하면 id로 DB조회하자.
+        ideaFormDto.setMemberId(principal.getName());  // getName이지만 id임   security에서는 name(id), pw만 있음.  username이 필요하면 id로 DB조회하자.
         Long id=ideaService.insertIdea(ideaFormDto);
-
         return "redirect:/idea/ideaView?id="+id;
     }
 
 
-    //insert에서 파일처리하는거(ckeditor말고 따로 올린 파일),  fileUpload에서 DB에도 업로드하기,   edit하기     여기까지 하고 정리하기 . 내일 다 할 수 있다 아자아자
+    //insert에서 파일처리하는거(ckeditor말고 따로 올린 파일),  fileUpload에서 DB에도 업로드하기,   edit하기     여기까지 하고 정리하기.
+    // 내일 다 할 수 있다 아자아자    view에서 다운로드까지 구현해놓기(AttachController)
 
 
 
     //오르지 ckeditor만을위한거
     //json형태로 return하라고 ckeditor document에 있음.
+    //이건 DB에 따로 insert안해줘도됨.   idea에 content에 html 태그형식으로 저장됨.  이 때 이미지파일등도 알아서  찾음(파일만 정해진 위치에 있다면)
     @PostMapping("/idea/fileUpload")
     @ResponseBody
     public String fileUpload(HttpServletRequest request, HttpServletResponse response,
@@ -108,9 +110,6 @@ public class IdeaController {
 
                         //여기서 실제로 파일이 저장 + AttachDto return
                         AttachDto attachDto = fileService.getAttachByMultipart(multipart, "IDEA", "idea");
-
-                        //파일 정보를 DB에 저장하는건 나중에 하자..
-
                         //ckeditor쪽에 보낼 데이터 설정
                         //파일 이름 설정
                         String fileName = attachDto.getAttachFileName();  //multipart.getName()
@@ -143,14 +142,8 @@ public class IdeaController {
     }
 
 
-    //1. <script type='text/javascript'>window.parent.CKEDITOR.tools.callFunction('콜백의 식별 ID 값', '파일의 URL', '전송완료 메시지')</script>
-    //2. url에 맞는 controller로 파일이나 byte형태 주면 ckeditor가 알아서  미리보기까지는 해줄거같은데...
-    //3. 이건 신경쓰지말자...  미리보기로 전송된 파일이 실제로 저장 안됐을 때는 괜히 이미지 많이 저장되는거 아니냐... 그렇게 많지는 않을텐데...
-    //4. 일단 DB에도 저장되야 한다.
-    // 내 선택은 2번인데.. 1번의 경우 서버측, 즉 프로젝트에 파일이 업로드 됐을때의 사용하는경우..  그러므로 2번을 선택하자.
-    // 2번이 맞았다!!!!
-    //img파일 썸네일
-    //오르지 ckeditor만을위한거
+    //img파일 미리보기
+    //ckeditor용으로 만들긴 했는데,  img 미리보기가 필요한 곳은 어디든 가능( member사진이라던가...)
     @GetMapping("/attach/{fileName}")
     @ResponseBody
     public ResponseEntity<byte[]> getFile(@PathVariable("fileName") String fileName){
@@ -166,7 +159,5 @@ public class IdeaController {
         }
         return result;
     }
-    //나중에 수정할 때 ckeditor에서 올렸던 내용 그대로 보여져야 할텐데... view랑 edit이 다르네...
-    // 저장할 때   파일정보가 오냐...
 
 }
