@@ -1,8 +1,16 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <!-- Fixed navbar -->
 <nav class="navbar navbar-default navbar-fixed-top" th:fragment="top">
-    <div class="container">
+  <!--  <div class="container">
+        <a href="/">
+            <img src="/logo.png" style="height:100px; width:100px;
+    margin: auto;
+    display: block;">
+        </a>
+            로고는 나중에 꾸며보자
+    </div>-->
+        <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
                     aria-expanded="false" aria-controls="navbar">
@@ -13,12 +21,13 @@
             </button>
             <a class="navbar-brand" href="#"> 빛나는 아이디어 </a>
         </div>
+
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Home</a></li>
-                <li><a href="<%=request.getContextPath()%>/about/aboutHome.wow">About</a></li>
-                <li><a href="#contact">Contact</a></li>
-                <li class="dropdown">
+                <li><a href="#">Home</a></li>
+                <li><a href="/idea/ideaList">아이디어모음</a></li>
+
+                <!--<li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">게시판
                         <span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
@@ -28,14 +37,18 @@
                         <li class="divider"></li>
                         <li class="dropdown-header">더 있나 추가할거?</li>
                     </ul>
-                </li>
+                </li>-->
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="<%=request.getContextPath() %>/login/login.wow">로그인</a></li>
-                <li><a href="<%=request.getContextPath() %>/join/step1.wow">회원가입</a></li>
+                <th:block sec:authorize="!isAuthenticated()">
+                <li><a href="/login/login">로그인</a></li>
+                <li><a href="/member/join">회원가입</a></li>
+                </th:block>
+                <th:block sec:authorize="isAuthenticated()">
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> 이름..
-                        님 <span class="caret"></span></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                        <th:block  sec:authentication="principal.name"></th:block>
+                       님<span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
                         <li><a href="<%=request.getContextPath() %>/mypage/info.wow">
                             <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
@@ -52,17 +65,12 @@
                         <li class="divider"></li>
                         <li>
                             <form action="/login/logout" method="post">
-<!--                                <input-->
-<!--                                        type="hidden"-->
-<!--                                        th:name="${_csrf.parameterName}"-->
-<!--                                        th:value="${_csrf.token}" />    security에서 csrf사용할때는 이거 해줘야함.-->
                                 <button type="submit"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>로그아웃</button>
                             </form>
                            </li>
                     </ul>
                 </li>
-
-
+                </th:block>
             </ul>
         </div><!--/.nav-collapse -->
     </div>

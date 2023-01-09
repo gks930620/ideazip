@@ -14,7 +14,8 @@ public class MemberRepositoryImpl  implements  MemberRepositoryCustom{
 
     @Override
     public LoginDto findLoginDto(String id) {
-        return queryFactory.select(new QLoginDto(member.id,member.password,member.role))
+        return queryFactory.select(new QLoginDto(member.id,member.password
+                        ,member.username,member.role))
                 .from(member)
                 .where(member.id.eq(id))
                 .fetchOne();

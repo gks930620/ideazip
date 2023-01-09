@@ -2,10 +2,12 @@ package jpabook.jpashop.controller;
 
 import com.google.gson.JsonObject;
 import jpabook.jpashop.dto.*;
+import jpabook.jpashop.service.AttachService;
 import jpabook.jpashop.service.CategoryService;
 import jpabook.jpashop.service.FileService;
 import jpabook.jpashop.service.IdeaService;
 import lombok.RequiredArgsConstructor;
+import org.apache.catalina.session.StandardSession;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -13,6 +15,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
@@ -35,6 +38,7 @@ public class IdeaController {
     private final IdeaService ideaService;
     private  final CategoryService categoryService;
     private final FileService fileService;
+    private  final AttachService attachService;
 
     @ModelAttribute("categoryList")
     public List<CategoryDto> categoryList(){
@@ -43,28 +47,33 @@ public class IdeaController {
 
     @RequestMapping("/idea/ideaList")
     public String ideaList(Model model, @PageableDefault(size = 10)Pageable pageable
-            , @ModelAttribute("search") IdeaListSearch ideaListSearchDto){  // 검색과 페이징은 따로따로.  페이징 : 파라미터이름이 page,size,sort
+                           // 검색과 페이징은 따로따로.  페이징 : 파라미터이름이 page,size,sort
+            , @ModelAttribute("search") IdeaListSearch ideaListSearchDto
+    ){
         Page<IdeaListDto> pageResults = ideaService.getIdeaList(pageable, ideaListSearchDto);
         List<IdeaListDto> ideaList = pageResults.getContent();
 
         model.addAttribute("page",pageResults);
         model.addAttribute("ideaList",ideaList);
+
+
         return "idea/ideaList";
+
     }
 
 
     @GetMapping("/idea/ideaView")
     public String ideaView(Model model, Long id){
-        IdeaViewDto idea= ideaService.getIdea(id);
+        IdeaViewDto idea= ideaService.getIdeaView(id);
         model.addAttribute("idea",idea);
         return "idea/ideaView";
     }
+
+
     @GetMapping("/idea/ideaForm")  //interceptor나 session없이 security를 통해서.
     public String ideaForm(){
         return "idea/ideaForm";
     }
-
-
 
     @PostMapping("/idea/ideaInsert")   //ckEditor로 이용한 이미지 업로드는 따로 파일업로드 경로가 따로 있지만, 단순 파일첨부 처리는 여기서 한다. 어차피 서비스로 하니까 뭐 코드 중복 될 일은 없지.
     public String ideaInsert(
@@ -72,18 +81,53 @@ public class IdeaController {
             @RequestParam(value = "boFiles",required = false) MultipartFile[] boFiles
             , Principal principal // security에서 제공하는 로그인정보(현재 로그인된 id,pw 등)
     ) throws IOException {
-        //set말고 그냥 attach Service  , ideaService 따로하면 될 거 같은데.. 굳이 set해야되나?
-        if(boFiles!=null){
-            //파일처리는 나중에
-        }
+
         ideaFormDto.setMemberId(principal.getName());  // getName이지만 id임   security에서는 name(id), pw만 있음.  username이 필요하면 id로 DB조회하자.
         Long id=ideaService.insertIdea(ideaFormDto);
+
+        //set말고 그냥 attach Service  , ideaService 따로하면 될 거 같은데.. 굳이 set해야되나?
+        if(boFiles!=null){
+            List<AttachDto> attachDtos = fileService.getAttachListByMultiparts(boFiles, "IDEA", "idea"); //파일저장
+            attachService.insertAttaches(attachDtos,id); //DB저장
+        }
+
         return "redirect:/idea/ideaView?id="+id;
     }
 
 
-    //insert에서 파일처리하는거(ckeditor말고 따로 올린 파일),  fileUpload에서 DB에도 업로드하기,   edit하기     여기까지 하고 정리하기.
-    // 내일 다 할 수 있다 아자아자    view에서 다운로드까지 구현해놓기(AttachController)
+    //첨부파일 삭제
+
+
+    @GetMapping("/idea/ideaEdit")
+    public String ideaEdit(Long id, Model model){
+        IdeaEditDto idea = ideaService.getIdeaEdit(id);   //categoryName 대신categoryCd가 나와야되는데 이게 어렵네... 또 dto만들고 쿼리짜야 되나...이러면 JPA쓰는 이유가없는데.. 고민해보자.
+        model.addAttribute("idea",idea);
+        return "idea/ideaEdit";
+    }
+
+
+
+
+    @PostMapping("/idea/ideaModify")
+    public String ideaModify(IdeaModifyDto ideaModifyDto,Principal principal,   @RequestParam(value = "boFiles",required = false) MultipartFile[] boFiles
+    ) throws  Exception{
+        ideaModifyDto.setMemberId(principal.getName());
+        ideaService.updateIdea(ideaModifyDto);
+        if(boFiles!=null){
+            List<AttachDto> attachDtos = fileService.getAttachListByMultiparts(boFiles, "IDEA", "idea"); //파일저장
+            attachService.insertAttaches(attachDtos,ideaModifyDto.getId()); //DB저장
+        }
+        return "redirect:/idea/ideaView?id="+ideaModifyDto.getId();
+    }
+
+
+
+
+
+
+
+
+
 
 
 
@@ -143,7 +187,7 @@ public class IdeaController {
 
 
     //img파일 미리보기
-    //ckeditor용으로 만들긴 했는데,  img 미리보기가 필요한 곳은 어디든 가능( member사진이라던가...)
+    //ckeditor용으로 만들긴 했는데,  img 미리보기가 필요한 곳은 어디든 가능( member사진이라던가...)   //그래서 AttachController쪽으로 보내고싶어지네..
     @GetMapping("/attach/{fileName}")
     @ResponseBody
     public ResponseEntity<byte[]> getFile(@PathVariable("fileName") String fileName){

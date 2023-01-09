@@ -1,6 +1,5 @@
 package jpabook.jpashop.config;
 
-
 import jpabook.jpashop.service.LoginSuccessValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -35,7 +34,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.formLogin()
                 .loginPage("/login/login")
-                .loginProcessingUrl("/login/loginCheck")    // loign.html에서  form  action=loginCheck가 되야됨  상대,절대 주의   
+                .loginProcessingUrl("/login/loginCheck")    // loign.html에서  form  action=loginCheck가 되야됨  상대,절대 주의     따로 컨트롤러만드는게 아니라. 이제
                 // 컨트롤러를 따로 만드는건아닌데,  csrf 관련 설정을 좀 해야함
                 .defaultSuccessUrl("/")   // 파라미터에 ("", true) 로 하면  1.member 페이지 요청 2.권한걸림 => login 화면 이동  3. 로그인성공 4. "/"로 이동,  기본값은 false인데 false로 해야 로그인 후 member 페이지로 이동
                 //defuatl를 했지만 security에서 제공하는 successHandler를 상속받은 후 커스텀하면  로그인 성공 시 특정 로직 등을 구현할 수 있다.  failHandler로 마찬가지.
@@ -44,9 +43,10 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll();
 
         http.logout()
-                .logoutRequestMatcher(new AntPathRequestMatcher("/login/logout"))   //기본값은 /logout
-                .logoutSuccessUrl("/")   //logout하면 일단은 홈으로 가게 하자구 .
+                .logoutRequestMatcher(new AntPathRequestMatcher("/login/logout"))   //기본값은 /logout   컨트롤러만드는게 아니라 로그아웃 url요청을 여기로 하면 logout처리해줌.
+                .logoutSuccessUrl("/")   //logout하면 일단은 홈으로 가게 하자구( 로그아웃 처리 후 이동 url)
                 .invalidateHttpSession(true);   //로그아웃시 세션제거, 근데 세션이 아니라 특성제거해야되는거 아냐?
+
 
         http.exceptionHandling()
                 .accessDeniedPage("/denied");   // 로그인했는데 (인증)  권한이 없는(인가) 사용자 접근 시 보여줄 페이지

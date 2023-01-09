@@ -35,7 +35,9 @@ public class Idea extends  BaseTimeEntity{
 
     private String title;
 
-    private String content;
+    @Lob
+    @Column
+    private String content; //String 말고 좀더 긴거
 
 
     private String ideaDelYn="N";

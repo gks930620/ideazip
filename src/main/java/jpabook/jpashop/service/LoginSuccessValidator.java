@@ -2,9 +2,12 @@ package jpabook.jpashop.service;
 
 
 import jpabook.jpashop.dto.LoginDto;
+import jpabook.jpashop.dto.UserCustom;
 import jpabook.jpashop.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -12,6 +15,10 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 
 /**
@@ -33,16 +40,22 @@ public class LoginSuccessValidator  implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String id) throws UsernameNotFoundException {
-        LoginDto user = memberRepository.findLoginDto(id);  //DB조회해서 얻은게 LoginDto인데..
-        if (user == null) {
+        LoginDto loginDto = memberRepository.findLoginDto(id);  //DB조회해서 얻은게 LoginDto인데..
+        if (loginDto == null) {  //이 메솓드 설명에는 return에 never null 이라 되어있던데..
             return null;
         }
-        String pw = user.getPassword();
-        String role =user.getRole();
-        return User.builder()
-                .username(id)
-                .password(pw)
-                .roles(role)
-                .build();
+        List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+
+        authorities.add(new SimpleGrantedAuthority("USER")); //일단 권한 유저,  나중에는 이거 유저권한리스트하면되는데 권한별로 할 일이 있을라나...
+        UserCustom userCustom=new UserCustom(
+                authorities,loginDto
+        );
+        return userCustom;
     }
+
+
+
+
+
+
 }

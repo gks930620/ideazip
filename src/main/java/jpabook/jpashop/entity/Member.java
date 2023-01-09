@@ -17,7 +17,7 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 //네이버나 카카오 API를 쓰면 어떻게 바뀌어야 할까
-public class Member  implements Persistable<String> {
+public class Member  extends  BaseTimeEntity implements Persistable<String> {
     public Member(String id, String password, String role, String username, String email, String hp, String birthday, String zipcode, String add, String addDetail) {
         this.id = id;
         this.password = password;

@@ -1,6 +1,6 @@
 Entity-> DTO는  프로젝트규모에 따라 달라지겠지만 여기서는 모두 persitenceLayer에서부터 DTO를 가지고오는걸로 한다.
 Service,Controller단엣는 Entity가지고 무언가 하지 않을 예정
-직접 저장할 때만  service단에서 entity 만들어서 repository호출하고,
+직접 저장할 때만  service단에서 entity 만들어서 repository호출하고,    (마틴파울러도 service에서 DTO-entity변환이있어야한다고 했음)
 그 외는 가져올 떄도 DTO 형태로 가져오는걸 기본으로 한다.
 
 
@@ -24,18 +24,39 @@ naver login API는 jsp를 보고 controller 단에서 자바코드로 작성했�
 로그인관련 부분 나중에 security 설정 주석풀면 됨. 개발편의를 위해 일단 security 적용안된상태로 진행.  이부분은 나중에 지우자.
 security에서 일단 다 permitAll로 해놓음
 
-
-
-파일업로드 : Multipart관련빈은 부트에서는 기본으로 등록되어있다!!
-
-
-
-
-
 할거 : IdeaInsert에서 파일처리,   ckeditor 이미지 미리보기 할 때 DB에 넣는거? (/idea/fileUpload)
-
 security적용안해서 아직 insert할 때 nullpointer나네.
 
+
+아직 @Transactional 적용안함.    save는 respoitory에서 @Trasactional 적용되어있음. save와 saveAll의 차이는 @Trasactional이 어떻게 걸리냐에 차이
+
+
+단순 화면에 보여주기 위한 DTO는 모든 필드 있어도 상관없을 거 같다.
+json처럼 api로 보여주는 용도에만  보여줄 DTO 따로 만드는게 편할 듯..
+화면별로 DTO만들어야되면 DTO너무 많이 필요해져서 개발이 너무 느림.
+일단 DTO무작정 그때 그때 만들어보자..
+
+일단 모든기능 동작하게 하고 refactoring 해보자 .. 완성된것도 아닌데 코드가 너무 복잡하다 벌써...
+에러처리는 나중에
+글쓴사람 확인할 때 security로 확인해보자(글 수정)
+
+
+Test는 어떻게 해야 coverage 80%정도가 나오게 할까..
+
+
+이제 좋아요, 조회수 기능 하고 기타 화면 정리하면 끝날듯.
+화면 좀 예쁘게 하고 프로젝트 올리고 AWS하는것도 해보고
+2번째 프로젝트로는   oauth 적용해서 뭐 프로젝트는 아니고 그냥 기능 작동하게 실험만 해보자.
+
+
+조회수,좋아요 기능.    (조회수먼저 해볼까)
+홈 화면 인기글 기능(주,월,일)
+
+
+개인화면, 회원가입
+
+
+(오늘은 8시에 한번 달리고 11시에 자는거다. 무조건 )
 
 
 

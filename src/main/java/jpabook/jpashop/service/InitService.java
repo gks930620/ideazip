@@ -1,13 +1,7 @@
 package jpabook.jpashop.service;
 
-import jpabook.jpashop.entity.Category;
-import jpabook.jpashop.entity.Idea;
-import jpabook.jpashop.entity.Member;
-import jpabook.jpashop.entity.ThumbUp;
-import jpabook.jpashop.repository.CategoryRepository;
-import jpabook.jpashop.repository.IdeaRepository;
-import jpabook.jpashop.repository.MemberRepository;
-import jpabook.jpashop.repository.ThumbUpRepository;
+import jpabook.jpashop.entity.*;
+import jpabook.jpashop.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -16,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -24,6 +19,7 @@ public class InitService {
     private final MemberRepository memberRepository;
     private final ThumbUpRepository thumbUpRepository;
     private  final CategoryRepository categoryRepository;
+    private final AttachRepository attachRepository;
 
     private final PasswordEncoder passwordEncoder;
 
@@ -63,7 +59,16 @@ public class InitService {
                 thumbUpRepository.save(thumbUp);
             }
         }
+        Optional<Idea> one = ideaRepository.findById(217L);
+        Idea idea1 = one.get();
+        Attach attach = new Attach(idea1, "IDEA", "1e68bec7-39ac-43de-b8e6-125807eb17a3"
+                , "화면 캡처 2022-12-23 145025.png", 34183L, "33.4 KB", "image/png", "idea");
 
+        Attach attach2 = new Attach(idea1, "IDEA", "84fcfc05-8e6a-4647-8c13-7357b817623c"
+                , "화면 캡처 2022-12-23 145025.png", 34183L, "33.4 KB", "image/png", "idea");
+
+        attachRepository.save(attach);
+        attachRepository.save(attach2);
     }
 
 }

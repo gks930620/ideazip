@@ -46,6 +46,8 @@ public class LoginController {
         return "login/login";
     }
 
+
+
     private void naverLoginAPI(HttpSession session, Model model) throws UnsupportedEncodingException {
         String clientId =  naverClientId;   //애플리케이션 클라이언트 아이디값";    "YOUR clientId"
         String redirectURI = URLEncoder.encode(naverRedirectUri, "UTF-8");   // 이것역시   "Your redirect URI"
